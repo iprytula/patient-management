@@ -1,5 +1,6 @@
 package com.pm.patientservice.mapper;
 
+import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.model.Patient;
 
@@ -28,6 +29,17 @@ public class PatientMapper {
 			.address(patientResponseDTO.getAddress())
 			.dateOfBirth(LocalDate.parse(patientResponseDTO.getDateOfBirth()))
 			.dateOfRegistration(LocalDate.parse(patientResponseDTO.getDateOfRegistration()))
+			.build();
+	}
+
+	public static Patient toEntity(PatientRequestDTO patientRequestDTO) {
+		return Patient.builder()
+			.firstName(patientRequestDTO.getFirstName())
+			.lastName(patientRequestDTO.getLastName())
+			.email(patientRequestDTO.getEmail())
+			.address(patientRequestDTO.getAddress())
+			.dateOfBirth(LocalDate.parse(patientRequestDTO.getDateOfBirth()))
+			.dateOfRegistration(LocalDate.parse(patientRequestDTO.getDateOfRegistration()))
 			.build();
 	}
 }
