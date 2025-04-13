@@ -43,7 +43,7 @@ public class PatientServiceImpl implements PatientService {
 		Patient patientToUpdate = patientRepository.findById(id)
 			.orElseThrow(() -> new PatientNotFoundException("Patient not found with id " + id));
 
-		if (patientRepository.existsByEmail(patient.getEmail()) && !patientToUpdate.getEmail().equals(patient.getEmail())) {
+		if (patientRepository.existsByEmailAndIdNot(patient.getEmail(), id)) {
 			throw new EmailAlreadyExistsException("Patient with email " + patient.getEmail() + " already exists");
 		}
 
