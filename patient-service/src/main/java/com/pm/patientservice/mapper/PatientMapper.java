@@ -11,8 +11,7 @@ public class PatientMapper {
 	public static PatientResponseDTO toDTO(Patient patient) {
 		return PatientResponseDTO.builder()
 			.id(patient.getId().toString())
-			.firstName(patient.getFirstName())
-			.lastName(patient.getLastName())
+			.name(patient.getName())
 			.email(patient.getEmail())
 			.address(patient.getAddress())
 			.dateOfBirth(patient.getDateOfBirth().toString())
@@ -23,8 +22,7 @@ public class PatientMapper {
 	public static Patient toEntity(PatientResponseDTO patientResponseDTO) {
 		return Patient.builder()
 			.id(UUID.fromString(patientResponseDTO.getId()))
-			.firstName(patientResponseDTO.getFirstName())
-			.lastName(patientResponseDTO.getLastName())
+			.name(patientResponseDTO.getName())
 			.email(patientResponseDTO.getEmail())
 			.address(patientResponseDTO.getAddress())
 			.dateOfBirth(LocalDate.parse(patientResponseDTO.getDateOfBirth()))
@@ -34,8 +32,7 @@ public class PatientMapper {
 
 	public static Patient toEntity(PatientRequestDTO patientRequestDTO) {
 		return Patient.builder()
-			.firstName(patientRequestDTO.getFirstName())
-			.lastName(patientRequestDTO.getLastName())
+			.name(patientRequestDTO.getName())
 			.email(patientRequestDTO.getEmail())
 			.address(patientRequestDTO.getAddress())
 			.dateOfBirth(LocalDate.parse(patientRequestDTO.getDateOfBirth()))
