@@ -58,8 +58,13 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public void deletePatient(UUID id) {
+	public PatientResponseDTO deletePatient(UUID id) {
+		Patient patient = patientRepository.findById(id)
+			.orElseThrow(() -> new PatientNotFoundException("Patient not found with id " + id));
+
 		patientRepository.deleteById(id);
+
+		return PatientMapper.toDTO(patient);
 	}
 
 }

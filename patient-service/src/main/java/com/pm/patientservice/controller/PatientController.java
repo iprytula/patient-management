@@ -49,9 +49,9 @@ public class PatientController {
 
 	@DeleteMapping("/{id}")
 	@Operation(summary = "Delete a patient")
-	public ResponseEntity<String> deletePatient(@PathVariable UUID id) {
-		patientService.deletePatient(id);
-		return ResponseEntity.accepted().body("Patient deleted successfully");
+	public ResponseEntity<PatientResponseDTO> deletePatient(@PathVariable UUID id) {
+		PatientResponseDTO deletedPatient = patientService.deletePatient(id);
+		return ResponseEntity.accepted().body(deletedPatient);
 	}
 
 }
