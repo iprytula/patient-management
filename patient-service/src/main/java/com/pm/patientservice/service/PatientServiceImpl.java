@@ -47,7 +47,7 @@ public class PatientServiceImpl implements PatientService {
 			throw new EmailAlreadyExistsException("Patient with email " + patient.getEmail() + " already exists");
 		}
 
-		patientToUpdate.setName(patient.getName());
+		patientToUpdate.setFullName(patient.getFullName());
 		patientToUpdate.setEmail(patient.getEmail());
 		patientToUpdate.setAddress(patient.getAddress());
 		patientToUpdate.setDateOfBirth(LocalDate.parse(patient.getDateOfBirth()));

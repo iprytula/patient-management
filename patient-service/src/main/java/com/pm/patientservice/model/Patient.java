@@ -20,7 +20,7 @@ public class Patient {
 	private UUID id;
 
 	@NotNull
-	private String name;
+	private String fullName;
 
 	@NotNull
 	@Email

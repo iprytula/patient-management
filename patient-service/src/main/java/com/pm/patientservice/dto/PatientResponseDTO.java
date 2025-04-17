@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class PatientResponseDTO {
 	private String id;
-	private String name;
+	private String fullName;
 	private String email;
 	private String address;
 	private String dateOfBirth;
