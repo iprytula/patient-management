@@ -35,4 +35,7 @@ public class Patient {
 
 	@NotNull
 	private LocalDate dateOfRegistration;
+
+	@NotNull
+	private String billingAccountId;
 }
