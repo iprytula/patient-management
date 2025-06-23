@@ -17,8 +17,4 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
 
 	boolean existsByEmailAndIdNot(@NotNull @Email String email, UUID id);
 
-	@Modifying
-	@Query("UPDATE Patient p SET p.billingAccountId = :billingAccountId WHERE p.id = :id")
-	Patient savePatientBillingAccountId(@NotNull UUID id, @NotNull String billingAccountId);
-
 }

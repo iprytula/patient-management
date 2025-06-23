@@ -15,7 +15,7 @@ public class BillingServiceGrpcClient {
 
 	// localhost:9001/BillingService/CreateBillingAccount
 	public BillingServiceGrpcClient(
-		@Value("${billing.service.address:localhost}") String billingServiceAddress,
+		@Value("${billing.service.address:billing-service}") String billingServiceAddress,
 		@Value("${billing.service.port:9001}") int billingServicePort
 	) {
 		log.info("Creating BillingServiceGrpcClient at {}:{}", billingServiceAddress, billingServicePort);

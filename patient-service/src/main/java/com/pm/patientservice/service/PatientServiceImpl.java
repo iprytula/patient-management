@@ -43,8 +43,6 @@ public class PatientServiceImpl implements PatientService {
 		BillingResponse billingResponse =
 			billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getFullName(), newPatient.getEmail());
 
-		newPatient = patientRepository.savePatientBillingAccountId(newPatient.getId(), billingResponse.getAccountId());
-
 		return PatientMapper.toDTO(newPatient);
 	}
 
