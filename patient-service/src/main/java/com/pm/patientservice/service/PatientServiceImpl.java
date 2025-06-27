@@ -1,11 +1,11 @@
 package com.pm.patientservice.service;
 
-import billing.BillingResponse;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
+import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
 import lombok.extern.log4j.Log4j2;
@@ -21,10 +21,15 @@ import java.util.UUID;
 public class PatientServiceImpl implements PatientService {
 	private final PatientRepository patientRepository;
 	private final BillingServiceGrpcClient billingServiceGrpcClient;
+	private final KafkaProducer kafkaProducer;
 
-	public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient) {
+	public PatientServiceImpl(
+		PatientRepository patientRepository,
+		BillingServiceGrpcClient billingServiceGrpcClient,
+		KafkaProducer kafkaProducer) {
 		this.patientRepository = patientRepository;
 		this.billingServiceGrpcClient = billingServiceGrpcClient;
+		this.kafkaProducer = kafkaProducer;
 	}
 
 	public List<PatientResponseDTO> getPatients() {
@@ -40,8 +45,10 @@ public class PatientServiceImpl implements PatientService {
 		}
 
 		Patient newPatient = patientRepository.save(PatientMapper.toEntity(patient));
-		BillingResponse billingResponse =
-			billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getFullName(), newPatient.getEmail());
+
+		billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getFullName(), newPatient.getEmail());
+
+		kafkaProducer.sendEvent(newPatient);
 
 		return PatientMapper.toDTO(newPatient);
 	}
