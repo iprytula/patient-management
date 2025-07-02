@@ -1,6 +1,7 @@
 services:
   patient-service-db:
     image: 'postgres:latest'
+    container_name: patient-service-db
     environment:
       - 'POSTGRES_DB=db'
       - 'POSTGRES_USER=admin_viewer'
@@ -11,6 +12,8 @@ services:
       - internal
 
   patient-service:
+    image: 'patient-service:latest'
+    container_name: patient-service
     build:
       context: ./patient-service
       dockerfile: Dockerfile
@@ -30,6 +33,7 @@ services:
 
   billing-service-db:
     image: 'postgres:latest'
+    container_name: billing-service-db
     environment:
       - 'POSTGRES_DB=db'
       - 'POSTGRES_USER=admin_viewer'
@@ -40,6 +44,8 @@ services:
       - internal
 
   billing-service:
+    image: 'billing-service:latest'
+    container_name: billing-service
     build:
       context: ./billing-service
       dockerfile: Dockerfile
@@ -58,8 +64,25 @@ services:
     networks:
       - internal
 
+  analytics-service:
+    image: 'analytics-service:latest'
+    container_name: analytics-service
+    build:
+      context: ./analytics-service
+      dockerfile: Dockerfile
+    ports:
+      - '4002:4002'
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - patient-service
+      - kafka
+    networks:
+      - internal
+
   kafka:
     image: 'bitnami/kafka:latest'
+    container_name: kafka
     ports:
       - '9092:9092'
       - '9094:9094'
