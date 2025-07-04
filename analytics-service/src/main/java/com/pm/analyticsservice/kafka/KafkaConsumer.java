@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class KafkaConsumer {
-
 	@KafkaListener(topics = "patient", groupId = "analytics-service")
 	public void consumeEvent(byte[] event) {
 		try {

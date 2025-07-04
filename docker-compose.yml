@@ -17,8 +17,6 @@ services:
     build:
       context: ./patient-service
       dockerfile: Dockerfile
-    ports:
-      - '4000:4000'
     depends_on:
       - patient-service-db
     environment:
@@ -77,6 +75,19 @@ services:
     depends_on:
       - patient-service
       - kafka
+    networks:
+      - internal
+
+  api-gateway:
+    image: 'api-gateway:latest'
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - '4004:4004'
+    depends_on:
+      - patient-service
     networks:
       - internal
 
