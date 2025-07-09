@@ -140,6 +140,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_SQL_INIT_MODE: always
+      JWT_SECRET: c2VjdXJlS2V5U2VjdXJlS2V5U2VjdXJlS2V5U2VjdXJlMQ==
     depends_on:
       - auth-service-db
     ports:
