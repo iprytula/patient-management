@@ -28,4 +28,14 @@ public class AuthServiceImpl implements AuthService {
 			.map(u -> jwtUtils.generateToken(u.getEmail(), u.getRole()));
 	}
 
+	@Override
+	public boolean validateToken(String token) {
+		try {
+			jwtUtils.validateToken(token);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }
