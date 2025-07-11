@@ -30,18 +30,17 @@ public class AuthController {
 		return tokenOptional.map(token ->
 			ResponseEntity.ok(new LoginResponseDTO(token)))
 			.orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-
 	}
 
 	@Operation(summary = "Validate JWT token")
 	@PostMapping("/validate")
-	public ResponseEntity<Void> validateToken(@RequestHeader("Authorization") String authorizationHeader) {
+	public ResponseEntity<String> validateToken(@RequestHeader("Authorization") String authorizationHeader) {
 		if (!authorizationHeader.startsWith("Bearer ")) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 
 		return authService.validateToken(authorizationHeader.substring(7)) ?
-			ResponseEntity.ok().build() :
+			ResponseEntity.ok().body("Authorization token is valid") :
 			ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 

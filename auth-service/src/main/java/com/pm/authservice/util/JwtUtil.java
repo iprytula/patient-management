@@ -1,7 +1,9 @@
 package com.pm.authservice.util;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -36,11 +38,16 @@ public class JwtUtil {
 		try {
 			Jwts.parser().verifyWith((SecretKey) secretKey)
 				.build()
-				.parseClaimsJws(token);
+				.parseSignedClaims(token);
 		} catch (SecurityException e) {
-			throw new JwtException("Invalid JWT signature");
+			throw new JwtException("Invalid JWT signature", e);
+		} catch (ExpiredJwtException e) {
+			throw new JwtException("JWT expired", e);
+		} catch (MalformedJwtException e) {
+			throw new JwtException("Malformed JWT", e);
 		} catch (JwtException e) {
-			throw new JwtException("Invalid JWT");
+			throw new JwtException("Invalid JWT", e);
 		}
 	}
+
 }
