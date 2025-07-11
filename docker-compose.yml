@@ -90,6 +90,8 @@ services:
     build:
       context: ./api-gateway
       dockerfile: Dockerfile
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:4005
     ports:
       - '4004:4004'
     depends_on:
@@ -143,8 +145,6 @@ services:
       JWT_SECRET: c2VjdXJlS2V5U2VjdXJlS2V5U2VjdXJlS2V5U2VjdXJlMQ==
     depends_on:
       - auth-service-db
-    ports:
-      - '4005:4005'
     networks:
       - internal
 

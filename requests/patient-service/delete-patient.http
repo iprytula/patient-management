@@ -1,4 +1,4 @@
 ### Delete a patient
 DELETE http://localhost:4004/api/patients/526a3d69-c8c8-41d4-a1da-ca7b253e12c0
-
+Authorization: Bearer {{ token }}
 ###
