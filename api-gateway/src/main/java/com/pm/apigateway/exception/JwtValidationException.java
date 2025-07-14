@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 @RestControllerAdvice
 public class JwtValidationException {
 
-	@ExceptionHandler(WebClientResponseException.class)
+	@ExceptionHandler(WebClientResponseException.Unauthorized.class)
 	public Mono<Void> handleUnauthorizedException(ServerWebExchange exchange) {
 		exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
 		return exchange.getResponse().setComplete();
