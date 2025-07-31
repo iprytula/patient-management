@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 public class JwtValidationGatewayFilterFactory extends AbstractGatewayFilterFactory<Object> {
-
 	private final WebClient webClient;
 
 	public JwtValidationGatewayFilterFactory(WebClient.Builder webClient, @Value("${auth.service.url}") String authUrl) {
